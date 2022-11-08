@@ -30,7 +30,7 @@ const Upload = () =>{
           return;
         }
         setProgress(0);
-        setSelectedFile(e.target.files[0]);
+        setSelectedFile(file);
       }
 
     const uploadFile = (file) => {
@@ -48,15 +48,19 @@ const Upload = () =>{
             setTimeout(() => {
               setShowAlert(false);
               setSelectedFile(null);
-            }, 3000)
+            }, 2000)
           })
           .send((err) => {
             if (err) console.log(err)
           })
       }
+
+    
+ 
+
     return (
         <Container>
-            <h1>File Upload to S3 Practice</h1>
+            <Title><span>File Upload to S3 Practice</span></Title>
             <div>
                 {showAlert ? 
                     <div>업로드 진행률 : {progress}%</div>
@@ -65,7 +69,7 @@ const Upload = () =>{
                 }
             </div>
             <input type="file" onChange={handleFileInput}/>
-            {selectedFile?(
+            {selectedFile ? (
               <button onClick={() => uploadFile(selectedFile)}> Upload to S3</button>
             ) : null }
         </Container>
@@ -77,4 +81,18 @@ export default Upload;
 const Container = styled.div`
     align-items: center;
     text-align: center;
+    height: 100vh;
+    
+`
+
+const Title = styled.div`
+  background-color: #75A2F1;
+  width: 100%;
+  height: 120px;
+  padding-top: 50px;
+  span{
+    color: white;
+    font-weight: bold;
+    font-size: 48px;
+  }
 `
